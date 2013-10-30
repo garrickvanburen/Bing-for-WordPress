@@ -260,16 +260,16 @@ function bing_for_wordpress_template_redirect() {
 	<div id="content" class="bing_for_wordpress_results_page hentry article">
 		<h1 class="page-title"><a href="<?php echo home_url(); ?>/?<?php echo $s; ?>">Search Results for: <span><?php echo $s; ?></span></a></h1>
 
-	<?php $results = bing_for_wordpress_search($s);
-
-	foreach($results as $r) { ?>
-		<?php if ( !preg_match('/\/feed\/$/', $r->Url) ) { ?>
-		<div class="status-publish hentry story">
-			<h2 class="entry-title"><a href="<?php echo $r->Url; ?>"><?php  echo $r->Title; ?></a></h2>
-			<p style="padding-top:0;"><?php echo $r->Description; ?></p>
-		</div>
-	<?php } ?>
-	<?php } ?>
+		<?php 
+		$results = bing_for_wordpress_search($s);
+		foreach($results as $r) { ?>
+			<?php if ( !preg_match('/\/feed\/$/', $r->Url) ) { ?>
+				<div class="hentry story result">
+					<h2 class="entry-title"><a href="<?php echo $r->Url; ?>"><?php  echo $r->Title; ?></a></h2>
+					<p><?php echo $r->Description; ?></p>
+				</div>
+			<?php } 
+		 } ?>
 	</div>
 	</div>
 	</div>
@@ -284,7 +284,6 @@ add_action('template_redirect', 'bing_for_wordpress_template_redirect', 1);
 function bing_for_wordpress_search($s) {
 	$bing_for_wordpress_options = get_option('bing_for_wordpress', array() );
 	$bing = new BingSearch("site:" . $bing_for_wordpress_options['domain'] . " " .  $s, 0,5000,$bing_for_wordpress_options['account_key']);
-	//$bing = new BingSearch("site:" . site_url() . $_GET['s'], 0,5000,'gme9U/gqgkRsxHUIZyAGB3bO98akn58ddxtvHoC4CG4');
 	$results = $bing->search();	
 	return $results;
 }
