@@ -1,0 +1,8 @@
+_Bing for WordPress_
+
+Replaces WordPress's default search with Bing.com.
+
+__Requirements__
+
+1. A Bing Search Results API subscription available here: https://datamarket.azure.com/dataset/bing/searchweb
+2. A https://datamarket.azure.com Account Key with access to the above subscription.
